@@ -4,7 +4,7 @@ Web-based map telemetry explorer for LILA BLACK production gameplay data. The to
 
 ## Live Demo
 
-- Hosted URL: `https://github.com/breakitaayush/LilaGaming`
+- Hosted URL: `https://breakitaayush.github.io/LilaGaming/`
 
 ## Tech Stack
 
