@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LILA BLACK Player Journey Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <p class="eyebrow">Level Design Toolkit</p>
+      <h1>LILA BLACK</h1>
+      <p class="subcopy">Trace routes, pressure points, loot flow, and death patterns across live production matches.</p>
+    </div>
+
+    <section class="control-block">
+      <h2>Filters</h2>
+      <label for="mapFilter">Map</label>
+      <select id="mapFilter"></select>
+
+      <label for="dateFilter">Session Date</label>
+      <select id="dateFilter"></select>
+
+      <label for="matchFilter">Match</label>
+      <select id="matchFilter"></select>
+    </section>
+
+    <section class="control-block">
+      <h2>Layers</h2>
+      <label for="heatmapSelector">Heatmap</label>
+      <select id="heatmapSelector">
+        <option value="none">None</option>
+        <option value="kills">Kill zones</option>
+        <option value="deaths">Death zones</option>
+        <option value="traffic">High traffic</option>
+      </select>
+
+      <div class="toggle-grid">
+        <label><input type="checkbox" id="showPaths" checked> Paths</label>
+        <label><input type="checkbox" id="showHumans" checked> Humans</label>
+        <label><input type="checkbox" id="showBots" checked> Bots</label>
+        <label><input type="checkbox" id="showKills" checked> Kills</label>
+        <label><input type="checkbox" id="showDeaths" checked> Deaths</label>
+        <label><input type="checkbox" id="showLoot" checked> Loot</label>
+        <label><input type="checkbox" id="showStorm" checked> Storm</label>
+      </div>
+    </section>
+
+    <section class="control-block compact">
+      <h2>Viewport</h2>
+      <div class="zoom-controls">
+        <button id="zoomIn" type="button">+</button>
+        <button id="zoomOut" type="button">-</button>
+        <button id="zoomReset" type="button">Reset</button>
+      </div>
+      <p class="helper">Drag to pan. Scroll or use zoom controls to inspect hotspots.</p>
+    </section>
+  </aside>
+
+  <main class="map-area">
+    <header class="map-header">
+      <div>
+        <p class="eyebrow" id="scopeLabel">Match View</p>
+        <h2 id="selectionTitle">Loading data...</h2>
+      </div>
+      <div class="header-metrics" id="headerMetrics"></div>
+    </header>
+
+    <div class="canvas-shell">
+      <canvas id="mapCanvas" width="1024" height="1024" aria-label="Player journey map"></canvas>
+      <div id="emptyState" class="empty-state hidden">No data available for this filter.</div>
+    </div>
+
+    <section class="timeline-panel">
+      <div class="timeline-header">
+        <span>Match Playback</span>
+        <span id="timeDisplay">0.0s / 0.0s</span>
+      </div>
+      <div class="timeline-controls">
+        <button id="playBtn" type="button">Play</button>
+        <button id="pauseBtn" type="button">Pause</button>
+        <button id="replayBtn" type="button">Replay</button>
+        <input type="range" id="timeline" min="0" max="100" value="100" step="1">
+      </div>
+    </section>
+
+    <section class="legend">
+      <div><span class="legend-swatch path human"></span> Human paths</div>
+      <div><span class="legend-swatch path bot"></span> Bot paths</div>
+      <div><span class="legend-swatch dot kill"></span> Kill / BotKill</div>
+      <div><span class="legend-swatch dot death"></span> Death / BotKilled</div>
+      <div><span class="legend-swatch dot loot"></span> Loot</div>
+      <div><span class="legend-swatch dot storm"></span> Storm death</div>
+    </section>
+  </main>
+
+  <aside class="panel">
+    <article class="card">
+      <h3>Selection Summary</h3>
+      <div id="matchStats"></div>
+    </article>
+
+    <article class="card">
+      <h3>Top Killers</h3>
+      <div id="topKillers"></div>
+    </article>
+
+    <article class="card">
+      <h3>Designer Notes</h3>
+      <div id="designInsights"></div>
+    </article>
+  </aside>
+
+  <div id="tooltip" class="tooltip"></div>
+  <script src="data.bundle.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
